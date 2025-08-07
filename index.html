@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dokumen Negara</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            /* Gradasi warna latar belakang yang lebih menarik */
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            overflow: hidden; /* Mencegah scroll saat tombol kabur */
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            max-width: 90%;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .ucapan {
+            font-family: 'Pacifico', cursive;
+            font-size: clamp(2rem, 8vw, 3.5rem); /* Ukuran font responsif */
+            color: #d6336c;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .pertanyaan {
+            font-size: clamp(1.2rem, 5vw, 1.8rem);
+            margin-top: 20px;
+            color: #333;
+        }
+
+        .love {
+            font-size: clamp(3rem, 15vw, 5rem);
+            color: #e64980;
+            margin: 20px 0;
+            /* Animasi hati berdetak */
+            animation: beat 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Jarak antar tombol */
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease; /* Transisi untuk semua properti */
+            position: relative; /* Diperlukan untuk pergerakan tombol "Nggak" */
+        }
+
+        .btn-mau {
+            background-color: #40c057; /* Hijau */
+        }
+
+        .btn-mau:hover {
+            background-color: #37b24d;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-nggak {
+            background-color: #f03e3e; /* Merah */
+        }
+        
+        /* Pesan setelah menekan "Mau" */
+        #pesan-diterima {
+            display: none; /* Sembunyikan secara default */
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        #pesan-diterima .ucapan {
+            color: #2b8a3e;
+        }
+
+        #pesan-diterima p {
+            font-size: clamp(1rem, 4vw, 1.2rem);
+            color: #555;
+            margin-top: 15px;
+        }
+
+        .btn-wa {
+            background-color: #25D366; /* Warna WhatsApp */
+            margin-top: 25px;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-wa:hover {
+            background-color: #128C7E;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Keyframes untuk animasi */
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="konten-pertanyaan">
+        <h1 class="ucapan">Hai Cilla Cantik!</h1>
+        <h2 class="pertanyaan">Kamu Mau Jadi Pacar Aku Gaa?</h2>
+        <div class="love">❤️</div>
+        
+        <div class="btn-group">
+            <button class="btn btn-mau" onclick="terima()">Mau</button>
+            <button class="btn btn-nggak" id="btn-nggak">Nggak</button>
+        </div>
+    </div>
+
+    <div class="container" id="pesan-diterima">
+  
+      <h1 class="ucapan">Yeay! Makasih yaa! 😍</h1>
+        <p>Aku seneng banget kamu mau nerima aku.</p>
+        <p>Infokan kita jalan-jalan! 😘</p>
+        <div class="love">💖</div>
+        <a href="https://wa.me/6281234567890?text=Aku%20mau%20jadi%20pacar%20kamu,%20nanti%20malem%20jadi%20ya%20kita%20jalan!"
+           class="btn btn-wa" 
+           target="_blank">
+           Kirim Jawaban via WA
+        </a>
+    </div>
+
+    <script>
+        const tombolNggak = document.getElementById('btn-nggak');
+        const kontainer = document.querySelector('body'); // Menggunakan body sebagai batas
+
+        // Fungsi untuk membuat tombol "Nggak" bergerak
+        function lari() {
+            // Dapatkan ukuran viewport dan tombol
+            const vpWidth = window.innerWidth;
+            const vpHeight = window.innerHeight;
+            const btnWidth = tombolNggak.offsetWidth;
+            const btnHeight = tombolNggak.offsetHeight;
+
+            // Atur posisi acak di dalam viewport
+            const randomX = Math.floor(Math.random() * (vpWidth - btnWidth));
+            const randomY = Math.floor(Math.random() * (vpHeight - btnHeight));
+            
+            tombolNggak.style.position = 'absolute'; // Ubah posisi menjadi absolut agar bisa bergerak bebas
+            tombolNggak.style.left = `${randomX}px`;
+            tombolNggak.style.top = `${randomY}px`;
+        }
+
+        // Jalankan fungsi `lari()` saat kursor mendekati tombol atau saat tombol di-klik
+        tombolNggak.addEventListener('mouseover', lari);
+        tombolNggak.addEventListener('click', lari);
+
+        // Fungsi yang dijalankan saat tombol "Mau" di-klik
+        function terima() {
+            const kontenPertanyaan = document.getElementById('konten-pertanyaan');
+            const pesanDiterima = document.getElementById('pesan-diterima');
+
+            // Sembunyikan pertanyaan dan tampilkan pesan diterima
+            kontenPertanyaan.style.display = 'none';
+            pesanDiterima.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
